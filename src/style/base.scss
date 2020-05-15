@@ -1,0 +1,284 @@
+* {
+  outline: none;
+  border: none;
+  font-style: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+html {
+  color: #000;
+  background: #fff;
+  height: 100%;
+}
+
+body {
+  //font-family: "微软雅黑", "Helvetica Neue", Helvetica, Microsoft Yahei,
+  //  Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+  font-family:SourceHanSansCN-Regular;
+  line-height: 1;
+  font-size: 14px !important;
+  /*no*/
+  color: #666;
+  height: 100%;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 28px;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+input,
+select,
+textarea {
+  font-size: 100%;
+  -webkit-appearance: none;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+input,
+textarea,
+button {
+  border: none;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  -webkit-appearance: none;
+  display: block;
+  outline: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+img,
+i {
+  display: block;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: 500;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+div[lazy="loading"] {
+  background-size: 40%;
+  background-position: center center;
+  background-color: #ccc;
+  background-repeat: no-repeat;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transform: translateX(0);
+  transition: all 0.3s;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+/*cube-ui样式覆盖*/
+.cube-picker-confirm,
+.cube-action-sheet-item_active {
+  color: #2E88F2 !important;
+}
+
+.cube-action-sheet-content {
+  max-height: 700px !important;
+  overflow: hidden !important;
+  overflow-y: auto !important;
+}
+
+.cube-image-preview-item {
+  width: 100% !important;
+}
+
+.cube-switch .cube-switch-input:checked+.cube-switch-ui {
+  background-color: #2E88F2 !important;
+  border-color: #2E88F2 !important;
+}
+
+.cube-checkbox-ui {
+  font-size: 14px !important;
+  /*no*/
+}
+
+.cube-checkbox_checked .cube-checkbox-ui i {
+  color: #2E88F2 !important;
+}
+
+//tab-bar的样式
+.cube-tab-bar {
+  background-color: white !important;
+  border-bottom: 1px solid #dcdcdc !important;
+  /*no*/
+}
+
+.cube-tab {
+  padding: 0px !important;
+  font-size: 26px !important;
+  /*no*/
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  height: 100px !important;
+
+  >div {
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+    font-size: 32px;
+  }
+}
+
+.cube-tab_active {
+  color: #2E88F2 !important;
+}
+
+.cube-tab-bar-slider {
+  background-color: #2E88F2 !important;
+}
+
+.cube-loading-spinner {
+  //background: #00B1F1!important;
+}
+
+.cube-dialog-btn_highlight {
+  color: #2E88F2 !important;
+}
+
+.cube-toast .cube-popup-content {
+  color: white !important;
+  background-color: rgba(117, 117, 117, 1) !important;
+}
+
+/*滚动条样式*/
+.bscroll-vertical-scrollbar {
+  width: 5px !important;
+  /*no*/
+}
+
+#app .visitors-check .cube-checkbox_checked .cube-checkbox-ui i,
+.visitors-check .cube-checkbox-ui::before,
+.visitors-check .cube-checkbox-ui::before,
+.visitors-check .cube-checkbox-ui i {
+  transform: scale(2.23);
+}
+
+.cube-dialog-title-def {
+  overflow: auto !important;
+  white-space: inherit !important;
+  line-height: 50px !important;
+  font-size: 34px;
+  margin-top: 50px !important;
+}
+
+#app .cube-slide-dots {
+  bottom: 10px !important;
+
+  >span {
+    margin: 0 10px;
+    height: 8px;
+    width: 30px;
+  }
+
+  >span.active {
+    background-color: #2E88F2;
+  }
+}
