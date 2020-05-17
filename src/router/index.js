@@ -107,6 +107,7 @@ const selectWorker = () => import('@/views/work/selectWorker') //选择人员
 const toAudit = () => import('@/views/work/toAudit') //待审核
 const workList = () => import('@/views/work/workList') //工单池
 const applicationMaterials = () => import('@/views/work/applicationMaterials') //工单池
+const selectPosition = () => import('@/views/work/selectPosition') //位置选择
 
 
 const router = new Router({
@@ -867,6 +868,15 @@ const router = new Router({
       meta: {
         keeplive: false,
         title: "工单池 " //工单池 
+      }
+    },
+    {
+      path: "/selectPosition",
+      name: "selectPosition",
+      component: selectPosition,
+      meta: {
+        keeplive: false,
+        title: "位置选择 " //位置选择 
       }
     },
   ]

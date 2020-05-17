@@ -8,8 +8,10 @@
           <span>来源</span>
         </div>
         <div class="rightContent">
-          <span class="selectBtn currentBtn">业主工单</span>
-          <span class="selectBtn">员工自查</span>
+          <!-- <span class="selectBtn currentBtn">业主工单</span>
+          <span class="selectBtn">员工自查</span> -->
+          <span v-for="(item,index) in workorder.source" :key="index" :class="[selectBtn,{currentBtn: index === currentBtn}]" @click="handleSource(index)">{{item}}</span>
+
         </div>
       </div>
       <div class="cells">
@@ -18,9 +20,10 @@
           <span>渠道</span>
         </div>
         <div class="rightContent">
-          <span class="selectBtn currentBtn">业主来访</span>
+          <!-- <span class="selectBtn currentBtn">业主来访</span>
           <span class="selectBtn">业主来电</span>
-          <span class="selectBtn">微信沟通</span>
+          <span class="selectBtn">微信沟通</span> -->
+          <span v-for="(item,index) in workorder.channel" :key="index" :class="[selectBtn,{currentBtn: index === currentBtn2}]" @click="handleChannel(index)">{{item.name}}</span>
         </div>
       </div>
       <div class="cells">
@@ -29,12 +32,8 @@
           <span>种类</span>
         </div>
         <div class="rightContent">
-          <span class="selectBtn">公区维修</span>
-          <span class="selectBtn currentBtn">入户维修</span>
-          <span class="selectBtn">质保期问题</span>
-          <span class="selectBtn">环境卫生</span>
-          <span class="selectBtn">客服</span>
-          <span class="selectBtn">安管</span>
+          <!-- <span class="selectBtn currentBtn">入户维修</span> -->
+          <span v-for="(item,index) in workorder.type" :key="index" :class="[selectBtn,{currentBtn: index === currentBtn3}]" @click="handleType(index)">{{item.name}}</span>
         </div>
       </div>
       <div class="cells">
@@ -43,7 +42,8 @@
           <span>位置</span>
         </div>
         <div class="rightContent">
-          <span class="contentArea">深圳悦澜山住宅1栋303</span>
+          <!-- <span class="contentArea" >{{workorder.position?workorder.position:'请选择位置'}}</span> -->
+          <router-link to='/selectPosition' class="contentArea">{{workorder.position?workorder.position:'请选择位置'}}</router-link>
           <span class="rightArrow"></span>
         </div>
       </div>
@@ -53,7 +53,8 @@
           <span>报单人</span>
         </div>
         <div class="rightContent">
-          <span class="contentArea">陶大然</span>
+          <!-- <span class="contentArea">陶大然</span> -->
+          <input type="text" class="contentArea" v-model="workorder.repairName">
         </div>
       </div>
       <div class="cells">
@@ -62,7 +63,8 @@
           <span>联系电话</span>
         </div>
         <div class="rightContent">
-          <span class="contentArea">13535353535</span>
+          <!-- <span class="contentArea">13535353535</span> -->
+          <input type="text" v-model="workorder.phone" class="contentArea">
         </div>
       </div>
       <div class="cells">
@@ -71,7 +73,7 @@
           <span>详情</span>
         </div>
         <div class="rightContent2">
-          <textarea placeholder="请在此填写您需要登记的问题详情"></textarea>
+          <textarea placeholder="请在此填写您需要登记的问题详情" v-model="workorder.detail"></textarea>
         </div>
 
         <div class="rightContent"></div>
@@ -124,6 +126,8 @@
 
 <script>
 import { headerTab, bottomButton2 } from "../../components/index";
+import { appGetRepairSource,appGetRepairType } from "@/service/work"
+
 
 export default {
   name: "createWork",
@@ -132,9 +136,47 @@ export default {
     bottomButton2
   },
   data() {
-    return {};
+    return {
+      currentBtn: 0,
+      currentBtn2: 0,
+      currentBtn3: 0,
+      selectBtn: 'selectBtn',
+      workorder: {
+        source: [ "业主工单","员工工单" ], // 来源
+        channel: [], // 渠道
+        type: [], //种类
+        position: '', // 位置
+        repairName: '',
+        phone: '',
+        detail: ''
+      }
+    };
   },
-  methods: {}
+  methods: {
+    handleSource (index) {
+      this.currentBtn = index
+    },
+    handleChannel(index){
+      this.currentBtn2 = index
+    },
+    handleType(index){
+      this.currentBtn3 = index
+    }
+    // 报修渠道
+    // async appGetRepairSource () {
+    //   this.a = await appGetRepairSource()
+    // }
+  },
+  async mounted () {
+    // await this.appGetRepairSource()
+    // 报修渠道
+    let source = await appGetRepairSource()
+    this.workorder.channel = source.list
+    // 工单种类
+    let type = await appGetRepairType()
+    this.workorder.type = type.list
+    console.log(this.workorder)
+  }
 };
 </script>
 
