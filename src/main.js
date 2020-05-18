@@ -107,7 +107,9 @@ Vue.use(Input);
 Vue.use(Textarea);
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
-Vue.use(Popup)
+Vue.use(Popup);
+Vue.use(Button)
+
 // Vue.use(Swipe)
 import './style/base.scss';
 
