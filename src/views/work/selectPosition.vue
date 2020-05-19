@@ -6,7 +6,7 @@
             <span>项目</span>
             <span class="select">请选择项目</span>
         </div>
-        <div class="floor">
+        <!-- <div class="floor">
             <span>楼栋</span>
             <div class="chooseFloor">
                 <cube-button @click="showPicker">{{floor?floor:'请选择楼栋'}}</cube-button>
@@ -18,13 +18,14 @@
                 <cube-button @click="showPickerRoom">{{room?room:'请选择房间号'}}</cube-button>
             </div>
         </div>
+        <button class="btn" @click="selectPosition">确定</button> -->
     </div>
   </div>
   
 </template>
 
 <script>
-import { appGetRepairProject} from "@/service/work"
+import { appGetRepairProject} from "@/service/work";
 import { headerTab } from "../../components/index";
 
 export default {
@@ -37,53 +38,64 @@ export default {
             column1:[{ text: '剧毒', value: '剧毒'}, { text: '蚂蚁', value: '蚂蚁' },{ text: '幽鬼', value: '幽鬼' }],
             column2:[{ text: '1', value: '1'}, { text: '2', value: '2' },{ text: '3', value: '3' }],
             floor: '',
-            room: ''
+            room: '',
+            workInfo: {}
         }
 
     },
     async mounted () {
         let res =await appGetRepairProject()
         console.log(res)
+        this.workInfo = this.$route.query.workInfo
+        console.log(this.$route.query)
     },
     methods: {
         selectProject () {
             this.$router.push({path:'/selectProject'})
         },
-        showPicker() {
-        if (!this.picker) {
-            this.picker = this.$createPicker({
-            title: '选择楼栋',
-            data: [this.column1],
-            onSelect: this.selectHandle,
-            onCancel: this.cancelHandle
-            })
-        }
-        this.picker.show()
-        },
-        selectHandle(selectedVal, selectedIndex, selectedText) {
-            this.floor = selectedVal.join(', ')
-            console.log(this.floor)
-        },
+        // showPicker() {
+        // if (!this.picker) {
+        //     this.picker = this.$createPicker({
+        //     title: '选择楼栋',
+        //     data: [this.column1],
+        //     onSelect: this.selectHandle,
+        //     onCancel: this.cancelHandle
+        //     })
+        // }
+        // this.picker.show()
+        // },
+        // selectHandle(selectedVal, selectedIndex, selectedText) {
+        //     this.floor = selectedVal.join(', ')
+        //     console.log(this.floor)
+        // },
 
-        cancelHandle() {
-            this.picker = ''
-        },
-        showPickerRoom() {
-        if (!this.picker2) {
-            this.picker2 = this.$createPicker({
-            title: '请选择房间号',
-            data: [this.column2],
-            onSelect: this.selectHandleRoom,
-            onCancel: this.cancelHandle2
+        // cancelHandle() {
+        //     this.picker = ''
+        // },
+        // showPickerRoom() {
+        // if (!this.picker2) {
+        //     this.picker2 = this.$createPicker({
+        //     title: '请选择房间号',
+        //     data: [this.column2],
+        //     onSelect: this.selectHandleRoom,
+        //     onCancel: this.cancelHandle2
+        //     })
+        // }
+        // this.picker2.show()
+        // },
+        // selectHandleRoom(selectedVal, selectedIndex, selectedText) {
+        //     this.room = selectedVal.join(', ')
+        //     console.log(this.room)
+        // },
+        // cancelHandle2() {
+        // },
+        selectPosition () {
+            this.$router.push({
+                path: 'createWork',
+                query: ({
+                    workInfo: this.workInfo
+                })
             })
-        }
-        this.picker2.show()
-        },
-        selectHandleRoom(selectedVal, selectedIndex, selectedText) {
-            this.room = selectedVal.join(', ')
-            console.log(this.room)
-        },
-        cancelHandle2() {
         }
 
     }
@@ -135,6 +147,19 @@ export default {
             background: #fff;
             font-size: 35px;
         }
+    }
+    .btn{
+        width: 90%;
+        margin: 0 auto;
+        background: skyblue;
+        height: 100px;
+        border-radius: 10px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        margin-top: 20px;
     }
 }
 </style>

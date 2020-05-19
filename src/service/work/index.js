@@ -17,3 +17,9 @@ export const appGetRepairProject = async (params) => {
     let url = '/comm/appInterface/communityList'
     return await axiosGet(url, params);
 }
+
+// 获取楼层
+export const appGetRepairFloor = async (params) => {
+    let url = '/comm/appInterface/getBuilding'
+    return await axiosGet(url, params);
+}

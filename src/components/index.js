@@ -7,6 +7,7 @@ import footerBtn from './footerComponent/footerBtn.vue'
 import commodityFooter from './footerComponent/commodityFooter.vue'
 import headerTab from './headerComponent/headerTab'
 import headerSearch from './headerComponent/headerSearch'
+import selectList from './work/selectList'
 // import inputCell from './inputCell/inputCell.vue'
 import star from "./star/star";
 export {
@@ -20,5 +21,6 @@ export {
   headerTab,
   headerSearch,
   star,
+  selectList,
   // inputCell
 }

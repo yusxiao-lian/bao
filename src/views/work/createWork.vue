@@ -42,8 +42,8 @@
           <span>位置</span>
         </div>
         <div class="rightContent">
-          <!-- <span class="contentArea" >{{workorder.position?workorder.position:'请选择位置'}}</span> -->
-          <router-link to='/selectPosition' class="contentArea">{{workorder.position?workorder.position:'请选择位置'}}</router-link>
+          <span class="contentArea" @click="choosePosition">{{workorder.position?workorder.position:'请选择位置'}}</span>
+          <!-- <router-link to='/selectPosition' class="contentArea">{{workorder.position?workorder.position:'请选择位置'}}</router-link> -->
           <span class="rightArrow"></span>
         </div>
       </div>
@@ -149,23 +149,38 @@ export default {
         repairName: '',
         phone: '',
         detail: ''
+      },
+      // 存储选择信息
+      workInfo: {
+        source: 0,
+        channel: 0,
+        type: 0
       }
     };
   },
   methods: {
     handleSource (index) {
       this.currentBtn = index
+      this.workInfo.source = index
     },
     handleChannel(index){
+
       this.currentBtn2 = index
+      this.workInfo.channel = index
     },
     handleType(index){
       this.currentBtn3 = index
+      this.workInfo.type = index
+    },
+    choosePosition () {
+      this.$router.push({
+        path: '/selectProject',
+        query: {
+          workInfo: this.workInfo
+        }
+      })
     }
-    // 报修渠道
-    // async appGetRepairSource () {
-    //   this.a = await appGetRepairSource()
-    // }
+    
   },
   async mounted () {
     // await this.appGetRepairSource()
@@ -176,6 +191,7 @@ export default {
     let type = await appGetRepairType()
     this.workorder.type = type.list
     console.log(this.workorder)
+    console.log(this.$route.query)
   }
 };
 </script>

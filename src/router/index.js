@@ -106,9 +106,11 @@ const toDoTasks = () => import('@/views/work/toDoTasks') //待办事项
 const selectWorker = () => import('@/views/work/selectWorker') //选择人员
 const toAudit = () => import('@/views/work/toAudit') //待审核
 const workList = () => import('@/views/work/workList') //工单池
-const applicationMaterials = () => import('@/views/work/applicationMaterials') //工单池
+const applicationMaterials = () => import('@/views/work/applicationMaterials') //申请物料
 const selectPosition = () => import('@/views/work/selectPosition') //位置选择
 const selectProject = () => import('@/views/work/selectProject') //项目选择
+const selectFloor = () => import('@/views/work/selectFloor') //项目楼层
+const selectRoom = () => import('@/views/work/selectRoom') //选择房间
 
 
 const router = new Router({
@@ -886,7 +888,25 @@ const router = new Router({
       component: selectProject,
       meta: {
         keeplive: false,
-        title: "切换小区 " //切换小区 
+        title: "选择项目 " //选择项目 
+      }
+    },
+    {
+      path: "/selectFloor",
+      name: "selectFloor",
+      component: selectFloor,
+      meta: {
+        keeplive: false,
+        title: "选择楼层 " //选择楼层 
+      }
+    },
+    {
+      path: "/selectRoom",
+      name: "selectRoom",
+      component: selectRoom,
+      meta: {
+        keeplive: false,
+        title: "选择房间 " //选择房间 
       }
     },
   ]

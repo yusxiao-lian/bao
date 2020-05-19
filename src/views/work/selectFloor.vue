@@ -1,59 +1,63 @@
 <template>
-  <div class="selectProject">
+  <div class="selectFloor">
     <headerTab :title="$route.meta.title" />
-    <!-- <p>E+社区</p> -->
-    <div class="selectList" v-for="(item,index) in proLists" :key="index" @click="selectProject(item)" >
+    <p @click="selectPro">{{name}}</p>
+    <div class="selectList" v-for="(item,index) in floors" :key="index" @click="selectFloor(item)" >
       <span>
           <slot>{{item.name}}</slot>
       </span>
       <span class="right"></span>
   </div>
-    <!-- <selectList v-for="(item,index) in proLists" :key="index" :name="item.name" @click="selectProject(item.id)"></selectList> -->
   </div>
 </template>
 
 <script>
+
 import { headerTab, bottomButton2 } from "../../components/index";
-import { selectList } from "../../components/index";
-import { appGetRepairProject} from "@/service/work"
+import { appGetRepairFloor } from "@/service/work"
+
 
 export default {
-    components: { headerTab,selectList },
+    components: {
+        headerTab
+    },
     data () {
         return {
             workInfo: {},
-            proLists: []
+            id: '',
+            floors: [], // 楼层列表
+            name: '',
+            floor: '' // 所选楼层
         }
     },
     async mounted () {
-        // 接收选择参数
+        console.log(this.$route.query)
+        let floor = await appGetRepairFloor({
+            'cid': this.$route.query.item.id
+        })
+        this.floors = floor.list 
+        this.name = this.$route.query.item.name
         this.workInfo = this.$route.query.workInfo
-        console.log( this.workInfo)
-
-        // 获取项目列表
-        let res =await appGetRepairProject()
-        let list = res.list
-        let lists = list.map(v => {
-            return v.list
-        })
-        console.log(lists)
-        let arr = []
-        let a = lists.map(i => {
-            i.forEach(e => {
-                arr.push(e)
-            });
-            return arr
-        })
-        this.proLists = arr
-        console.log(this.proLists)
+        console.log(this.$route.query)
     },
     methods: {
-        selectProject (item) {
+        selectPro () {
             this.$router.push({
-                path: '/selectFloor',
+                path: '/selectProject',
                 query: {
-                    'item': item,
-                    'workInfo': this.workInfo
+                    'workInfo': this.workInfo,
+                    name: this.name + this.floor
+                }
+            })
+        },
+        selectFloor (floor) {
+            console.log(floor)
+            this.floor = floor
+             this.$router.push({
+                path: '/selectRoom',
+                query: {
+                    'workInfo': this.workInfo,
+                    'name': this.name + floor.name
                 }
             })
         }
@@ -62,8 +66,7 @@ export default {
 </script>
 
 <style lang="scss" type="text/scss" scoped>
-
-.selectProject {
+.selectFloor {
     height: calc(100% - 100px);
     padding: 100px 0 0 20px;
     overflow: hidden;
