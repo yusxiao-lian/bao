@@ -23,3 +23,11 @@ export const appGetRepairFloor = async (params) => {
     let url = '/comm/appInterface/getBuilding'
     return await axiosGet(url, params);
 }
+
+// 获取房间
+export const appGetRepairRoom = async (params) => {
+    let url = '/comm/appInterface/getHouse	'
+    return await axiosGet(url, params);
+}
+		
+

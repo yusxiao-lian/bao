@@ -42,7 +42,7 @@
           <span>位置</span>
         </div>
         <div class="rightContent">
-          <span class="contentArea" @click="choosePosition">{{workorder.position?workorder.position:'请选择位置'}}</span>
+          <span class="contentArea" @click="choosePosition">{{position?position:'请选择位置'}}</span>
           <!-- <router-link to='/selectPosition' class="contentArea">{{workorder.position?workorder.position:'请选择位置'}}</router-link> -->
           <span class="rightArrow"></span>
         </div>
@@ -91,7 +91,7 @@
             </div>
             <div class="repairApply-content-img-item">
               <label for="male">
-                <input id="male" type="file" accept="image/*" />
+                <input id="male" type="file" accept="image/*" @change="uploadImg"/>
                 <img src="../../assets/upload.png" alt />
               </label>
             </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="repairApply-content-img-item">
               <label for="male">
-                <input id="male" type="file" accept="image/*" />
+                <input  type="file" accept="audio/*"  id="video"/>
                 <img src="../../assets/upload.png" alt />
               </label>
             </div>
@@ -141,6 +141,7 @@ export default {
       currentBtn2: 0,
       currentBtn3: 0,
       selectBtn: 'selectBtn',
+      position: '',
       workorder: {
         source: [ "业主工单","员工工单" ], // 来源
         channel: [], // 渠道
@@ -179,6 +180,11 @@ export default {
           workInfo: this.workInfo
         }
       })
+    },
+    uploadImg ($event) {
+      var vid = document.getElementById('video')
+      console.log($event)
+      console.log($event.target.files)
     }
     
   },
@@ -192,6 +198,18 @@ export default {
     this.workorder.type = type.list
     console.log(this.workorder)
     console.log(this.$route.query)
+
+    // 判断状态
+    console.log(this.$route.query.workInfo.source)
+    if (this.$route.query.allInfo.toname) {
+      this.position = this.$route.query.allInfo.toname
+    }
+    if(this.$route.query.workInfo.source || this.$route.query.workInfo.channel || this.$route.query.workInfo.type) {
+      this.workInfo = this.$route.query.workInfo
+      this.currentBtn = this.workInfo.source
+      this.currentBtn2 = this.workInfo.channel
+      this.currentBtn3 = this.workInfo.type
+    }
   }
 };
 </script>
@@ -263,7 +281,7 @@ export default {
         .contentArea {
           margin-bottom: 20px;
           width: 480px;
-          height: 60px;
+          // height: 60px;
           line-height: 60px;
           color: #1a1a1a;
         }

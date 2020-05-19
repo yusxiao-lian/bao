@@ -1,13 +1,15 @@
 <template>
   <div class="selectFloor">
-    <headerTab :title="$route.meta.title" />
+    <div class="top" @click="jump">
+          选择楼层
+      </div>
     <p @click="selectPro">{{name}}</p>
     <div class="selectList" v-for="(item,index) in floors" :key="index" @click="selectFloor(item)" >
       <span>
           <slot>{{item.name}}</slot>
       </span>
       <span class="right"></span>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -33,8 +35,9 @@ export default {
     async mounted () {
         console.log(this.$route.query)
         let floor = await appGetRepairFloor({
-            'cid': this.$route.query.item.id
+            'cid': this.$route.query.item.id // 项目id
         })
+        this.id = this.$route.query.item.id
         this.floors = floor.list 
         this.name = this.$route.query.item.name
         this.workInfo = this.$route.query.workInfo
@@ -46,7 +49,11 @@ export default {
                 path: '/selectProject',
                 query: {
                     'workInfo': this.workInfo,
-                    name: this.name + this.floor
+                    item: {
+                        'name': this.name + this.floor,
+                        'id': this.id,
+                        'name': this.name
+                    }
                 }
             })
         },
@@ -56,9 +63,22 @@ export default {
              this.$router.push({
                 path: '/selectRoom',
                 query: {
+                    'floor': floor,
                     'workInfo': this.workInfo,
-                    'name': this.name + floor.name
+                    'item': {
+                        'proname': this.name,
+                        'floorname': floor.name,
+                        'toname': this.name + floor.name,
+                        'id': this.id,
+                        'name': this.name,
+                        'roomid': floor.id
+                    }
                 }
+            })
+        },
+        jump () {
+            this.$router.push({
+                path: '/selectProject'
             })
         }
     }
@@ -71,6 +91,30 @@ export default {
     padding: 100px 0 0 20px;
     overflow: hidden;
     overflow-y: auto;
+    .top {
+        width: 100%;
+        height: 100px;
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        border-bottom: 1px solid #f1f1f1; /*no*/
+        color: black;
+        background: #fff;
+        &::before {
+            content: "";
+            width: 12px; /*no*/
+            height: 12px; /*no*/
+            border-bottom: 1px solid #333; /*no*/
+            border-left: 1px solid rgb(92, 90, 90); /*no*/
+            transform-origin: center;
+            transform: rotateZ(45deg);
+            position: absolute;
+            left: 10px;
+        }
+    }
     .selectList{
     display: flex;
     justify-content: space-between;
