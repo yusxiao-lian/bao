@@ -65,7 +65,8 @@ export default {
 }
 .headerTab{
     position: fixed;
-    top:-200px;
+    top:0px;
+    z-index: 9999;
 }
 .box{
     background: #fff;
